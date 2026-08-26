@@ -1,0 +1,22 @@
+<div class="card-item" [class.blocked]="card().isBlocked">
+  <div class="card-info">
+    <p class="card-number">{{ card().cardNumber }}</p>
+    <p class="holder-name">{{ card().holderName }}</p>
+    <div class="card-details">
+      <span class="expiry">{{ card().expiryDate }}</span>
+      <span class="balance">{{
+        card().balance | currency: 'RUB' : 'symbol-narrow' : '1.0-0'
+      }}</span>
+    </div>
+  </div>
+
+  @if (card().isBlocked) {
+    <span class="status status--blocked">Заблокирована</span>
+  } @else {
+    <span class="status status--active">Активна</span>
+  }
+
+  <button class="toggle-btn" (click)="onToggleBlock()">
+    {{ card().isBlocked ? 'Разблокировать' : 'Заблокировать' }}
+  </button>
+</div>

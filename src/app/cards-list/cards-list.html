@@ -1,0 +1,17 @@
+<!-- htmlhint attr-lowercase:false -->
+<div class="cards-list">
+  <div class="cards-summary">
+    <span>Активных карт: {{ activeCardsCount() }}</span>
+    @if (hasBlockedCards()) {
+      <span class="warning">Есть заблокированные карты</span>
+    }
+  </div>
+
+  <div class="cards-grid">
+    @for (card of cards(); track card.id) {
+      <app-card-item [card]="card" (blockToggled)="onToggleBlock($event)" />
+    } @empty {
+      <p class="empty-state">Нет добавленных карт</p>
+    }
+  </div>
+</div>

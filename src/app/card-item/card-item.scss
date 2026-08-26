@@ -1,0 +1,88 @@
+.card-item {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 12px;
+  padding: 20px;
+  color: #fff;
+  position: relative;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  &.blocked {
+    opacity: 0.7;
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+  }
+
+  .card-info {
+    margin-bottom: 16px;
+
+    .card-number {
+      font-size: 18px;
+      letter-spacing: 2px;
+      font-family: 'Courier New', monospace;
+      margin: 0 0 8px;
+    }
+
+    .holder-name {
+      font-size: 14px;
+      opacity: 0.8;
+      margin: 0 0 12px;
+    }
+
+    .card-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .expiry {
+        font-size: 14px;
+        opacity: 0.7;
+      }
+
+      .balance {
+        font-size: 18px;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 12px;
+
+    &--active {
+      background: rgba(46, 213, 115, 0.2);
+      color: #2ed573;
+    }
+
+    &--blocked {
+      background: rgba(255, 71, 87, 0.2);
+      color: #ff4757;
+    }
+  }
+
+  .toggle-btn {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}

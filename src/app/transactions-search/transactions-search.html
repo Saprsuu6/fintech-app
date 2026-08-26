@@ -1,0 +1,31 @@
+<div class="transactions-search">
+  <input
+    type="text"
+    class="search-input"
+    placeholder="Поиск по назначению или номеру карты..."
+    [value]="searchQuery()"
+    (input)="onSearchInput($event)"
+  />
+
+  <div class="transactions-list">
+    @for (transaction of transactions(); track transaction.id) {
+      <div
+        class="transaction-item"
+        [class.credit]="transaction.type === 'credit'"
+        [class.debit]="transaction.type === 'debit'"
+      >
+        <div class="transaction-info">
+          <p class="description">{{ transaction.description }}</p>
+          <p class="card-number">{{ transaction.cardNumber }}</p>
+          <p class="date">{{ transaction.date | date: 'dd.MM.yyyy' }}</p>
+        </div>
+        <span class="amount" [class.positive]="transaction.type === 'credit'">
+          {{ transaction.type === 'credit' ? '+' : '−'
+          }}{{ transaction.amount | currency: 'RUB' : 'symbol-narrow' : '1.0-0' }}
+        </span>
+      </div>
+    } @empty {
+      <p class="empty-state">Введите запрос для поиска транзакций</p>
+    }
+  </div>
+</div>
