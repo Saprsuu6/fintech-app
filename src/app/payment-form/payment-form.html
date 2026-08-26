@@ -23,6 +23,19 @@
     />
   </div>
 
+  <div class="form-group">
+    <label for="tx-type">Тип транзакции</label>
+    <select
+      id="tx-type"
+      class="form-input"
+      [value]="transactionType()"
+      (change)="onTypeChange($event)"
+    >
+      <option value="debit">Списание (Debit)</option>
+      <option value="credit">Пополнение (Credit)</option>
+    </select>
+  </div>
+
   <button class="submit-btn" (click)="onSubmit()">Отправить платёж</button>
 
   @if (paymentResult(); as result) {

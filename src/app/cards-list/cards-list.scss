@@ -1,29 +1,48 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .cards-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+
   .cards-summary {
     display: flex;
-    gap: 16px;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
     font-size: 14px;
-    color: #666;
+    color: #64748b;
+    flex-shrink: 0;
 
     .warning {
-      color: #ff4757;
+      color: #ef4444;
       font-weight: 500;
+      background: #fef2f2;
+      padding: 4px 10px;
+      border-radius: 12px;
     }
   }
 
   .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+    padding-right: 8px; /* For scrollbar */
+    padding-bottom: 20px;
   }
 
   .empty-state {
-    grid-column: 1 / -1;
     text-align: center;
     padding: 40px;
-    color: #999;
-    font-size: 16px;
+    color: #94a3b8;
+    font-size: 15px;
+    margin: auto;
   }
 }

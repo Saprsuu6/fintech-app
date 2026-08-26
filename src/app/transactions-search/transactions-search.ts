@@ -1,7 +1,7 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { combineLatest, debounceTime, distinctUntilChanged, startWith, switchMap } from 'rxjs';
 import { Transaction } from '../models';
 import { TransactionsService } from '../services/transactions.service';
 
@@ -16,11 +16,14 @@ export class TransactionsSearchComponent {
 
   readonly searchQuery = signal('');
 
-  private readonly searchStream$ = toObservable(this.searchQuery).pipe(
-    debounceTime(300),
-    distinctUntilChanged(),
-    switchMap((query) => this.transactionsService.searchTransactions(query)),
-  );
+  private readonly searchStream$ = combineLatest([
+    toObservable(this.searchQuery).pipe(
+      debounceTime(300), // Ждём 300мс после последнего ввода
+      distinctUntilChanged(), // Игнорируем повторяющиеся значения
+      startWith(''), // Начинаем с пустой строки
+    ),
+    this.transactionsService.refresh$.pipe(startWith(null)), // Слушаем обновления (когда добавили транзакцию)
+  ]).pipe(switchMap(([query]) => this.transactionsService.searchTransactions(query)));
 
   readonly transactions = toSignal(this.searchStream$, {
     initialValue: [] as Transaction[],
