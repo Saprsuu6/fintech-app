@@ -1,21 +1,15 @@
 <!-- htmlhint doctype-first:false -->
 <header class="app-header">
   <h1>{{ title }}</h1>
+
+  @if (isLoggedIn()) {
+    <div class="header-profile">
+      <span>Привет, {{ user()?.firstName }}! 👋</span>
+      <button class="logout-btn" (click)="onLogout()">Выйти</button>
+    </div>
+  }
 </header>
 
-<main class="app-main">
-  <section class="section">
-    <h2>Мои карты</h2>
-    <app-cards-list />
-  </section>
-
-  <section class="section">
-    <h2>Поиск транзакций</h2>
-    <app-transactions-search />
-  </section>
-
-  <section class="section">
-    <h2>Новый платёж</h2>
-    <app-payment-form />
-  </section>
+<main class="app-main" [class.is-auth]="!isLoggedIn()">
+  <router-outlet></router-outlet>
 </main>

@@ -1,0 +1,26 @@
+<div class="auth-card">
+  <h3>Вход в систему</h3>
+
+  <input
+    class="form-input"
+    placeholder="Логин (admin)"
+    [value]="username()"
+    (input)="username.set($any($event.target).value)"
+  />
+
+  <input
+    type="password"
+    class="form-input"
+    placeholder="Пароль (1234)"
+    [value]="password()"
+    (input)="password.set($any($event.target).value)"
+  />
+
+  @if (error()) {
+    <p class="error-msg">{{ error() }}</p>
+  }
+
+  <button class="btn primary" (click)="onLogin()" [disabled]="isLoading()">
+    {{ isLoading() ? 'Загрузка...' : 'Войти' }}
+  </button>
+</div>

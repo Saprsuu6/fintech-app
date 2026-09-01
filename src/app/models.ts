@@ -1,3 +1,9 @@
+export interface User {
+  id: string;
+  username: string;
+  firstName: string;
+}
+
 export interface BankCard {
   id: string;
   cardNumber: string;

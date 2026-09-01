@@ -1,0 +1,30 @@
+:host {
+  display: contents;
+}
+
+.section {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  h2 {
+    font-size: 18px;
+    color: #0f172a;
+    margin: 0 0 20px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  > :last-child {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+}
