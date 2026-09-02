@@ -1,26 +1,64 @@
 <div class="auth-card">
-  <h3>Вход в систему</h3>
+  <div class="auth-header">
+    <div class="auth-logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="20" height="14" x="2" y="5" rx="3" />
+        <line x1="2" x2="22" y1="10" y2="10" />
+      </svg>
+    </div>
+    <h3>Вход в систему</h3>
+    <p class="auth-subtitle">Fintech Dashboard</p>
+  </div>
 
-  <input
-    class="form-input"
-    placeholder="Логин (admin)"
-    [value]="username()"
-    (input)="username.set($any($event.target).value)"
-  />
+  <div class="auth-form-fields">
+    <div class="field-group">
+      <label for="auth-login">Логин</label>
+      <input
+        id="auth-login"
+        class="form-input"
+        placeholder="admin"
+        autocomplete="username"
+        [value]="username()"
+        (input)="username.set($any($event.target).value)"
+      />
+    </div>
 
-  <input
-    type="password"
-    class="form-input"
-    placeholder="Пароль (1234)"
-    [value]="password()"
-    (input)="password.set($any($event.target).value)"
-  />
+    <div class="field-group">
+      <label for="auth-password">Пароль</label>
+      <input
+        id="auth-password"
+        type="password"
+        class="form-input"
+        placeholder="••••"
+        autocomplete="current-password"
+        [value]="password()"
+        (input)="password.set($any($event.target).value)"
+        (keyup.enter)="onLogin()"
+      />
+    </div>
+  </div>
 
   @if (error()) {
-    <p class="error-msg">{{ error() }}</p>
+    <div class="error-msg">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="8" x2="12" y2="12" />
+        <line x1="12" y1="16" x2="12.01" y2="16" />
+      </svg>
+      <span>{{ error() }}</span>
+    </div>
   }
 
   <button class="btn primary" (click)="onLogin()" [disabled]="isLoading()">
-    {{ isLoading() ? 'Загрузка...' : 'Войти' }}
+    @if (isLoading()) {
+      <span class="spinner"></span>
+      <span>Проверка данных...</span>
+    } @else {
+      <span>Войти</span>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12" />
+        <polyline points="12 5 19 12 12 19" />
+      </svg>
+    }
   </button>
 </div>

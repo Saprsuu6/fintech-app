@@ -1,3 +1,4 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { PaymentResult } from '../models';
 import { CardsService } from '../services/cards.service';
@@ -6,6 +7,7 @@ import { TransactionsService } from '../services/transactions.service';
 
 @Component({
   selector: 'app-payment-form',
+  imports: [CurrencyPipe],
   templateUrl: './payment-form.html',
   styleUrl: './payment-form.scss',
 })
@@ -18,6 +20,12 @@ export class PaymentFormComponent {
   readonly recipientPan = signal('');
   readonly transactionType = signal<'credit' | 'debit'>('debit');
   readonly paymentResult = signal<PaymentResult | null>(null);
+
+  readonly quickAmounts = [500, 1000, 2500, 5000];
+
+  setQuickAmount(val: number): void {
+    this.amount.set(val);
+  }
 
   onAmountInput(event: Event): void {
     const value = Number((event.target as HTMLInputElement).value);

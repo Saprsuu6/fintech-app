@@ -1,22 +1,61 @@
 <div class="card-item" [class.blocked]="card().isBlocked">
-  <div class="card-info">
+  <div class="card-top-bar">
+    <div class="chip-container">
+      <div class="emv-chip"></div>
+      <svg class="contactless-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3" />
+        <path d="M5.5 17.5A6 6 0 0 0 11 6" />
+        <path d="M2.5 20.5A10 10 0 0 0 12 2" />
+      </svg>
+    </div>
+
+    @if (card().isBlocked) {
+      <span class="status status--blocked">
+        <span class="dot"></span>
+        Заблокирована
+      </span>
+    } @else {
+      <span class="status status--active">
+        <span class="dot"></span>
+        Активна
+      </span>
+    }
+  </div>
+
+  <div class="card-number-wrapper">
     <p class="card-number">{{ card().cardNumber }}</p>
-    <p class="holder-name">{{ card().holderName }}</p>
-    <div class="card-details">
+  </div>
+
+  <div class="card-footer">
+    <div class="card-meta">
+      <span class="meta-label">Держатель</span>
+      <span class="holder-name">{{ card().holderName }}</span>
+    </div>
+
+    <div class="card-meta">
+      <span class="meta-label">Срок</span>
       <span class="expiry">{{ card().expiryDate }}</span>
-      <span class="balance">{{
-        card().balance | currency: 'RUB' : 'symbol-narrow' : '1.0-0'
-      }}</span>
+    </div>
+
+    <div class="card-meta align-right">
+      <span class="meta-label">Баланс</span>
+      <span class="balance">{{ card().balance | currency: 'RUB' : 'symbol-narrow' : '1.0-0' }}</span>
     </div>
   </div>
 
-  @if (card().isBlocked) {
-    <span class="status status--blocked">Заблокирована</span>
-  } @else {
-    <span class="status status--active">Активна</span>
-  }
-
   <button class="toggle-btn" (click)="onToggleBlock()">
-    {{ card().isBlocked ? 'Разблокировать' : 'Заблокировать' }}
+    @if (card().isBlocked) {
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+        <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+      </svg>
+      <span>Разблокировать карту</span>
+    } @else {
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+      </svg>
+      <span>Заблокировать карту</span>
+    }
   </button>
 </div>

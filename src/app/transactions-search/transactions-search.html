@@ -1,11 +1,17 @@
 <div class="transactions-search">
-  <input
-    type="text"
-    class="search-input"
-    placeholder="Поиск по назначению или номеру карты..."
-    [value]="searchQuery()"
-    (input)="onSearchInput($event)"
-  />
+  <div class="search-input-wrapper">
+    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" x2="16.65" y1="21" y2="16.65" />
+    </svg>
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Поиск по назначению или номеру карты..."
+      [value]="searchQuery()"
+      (input)="onSearchInput($event)"
+    />
+  </div>
 
   <div class="transactions-list">
     @for (transaction of transactions(); track transaction.id) {
@@ -14,18 +20,41 @@
         [class.credit]="transaction.type === 'credit'"
         [class.debit]="transaction.type === 'debit'"
       >
-        <div class="transaction-info">
-          <p class="description">{{ transaction.description }}</p>
-          <p class="card-number">{{ transaction.cardNumber }}</p>
-          <p class="date">{{ transaction.date | date: 'dd.MM.yyyy' }}</p>
+        <div class="transaction-leading">
+          <div class="type-badge" [class.is-credit]="transaction.type === 'credit'">
+            @if (transaction.type === 'credit') {
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="7" x2="17" y2="17" />
+                <polyline points="17 7 17 17 7 17" />
+              </svg>
+            } @else {
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7" />
+                <polyline points="7 7 17 7 17 17" />
+              </svg>
+            }
+          </div>
+
+          <div class="transaction-info">
+            <p class="description">{{ transaction.description }}</p>
+            <div class="meta-row">
+              <span class="card-number">{{ transaction.cardNumber }}</span>
+              <span class="dot-separator">•</span>
+              <span class="date">{{ transaction.date | date: 'dd.MM.yyyy' }}</span>
+            </div>
+          </div>
         </div>
-        <span class="amount" [class.positive]="transaction.type === 'credit'">
-          {{ transaction.type === 'credit' ? '+' : '−'
-          }}{{ transaction.amount | currency: 'RUB' : 'symbol-narrow' : '1.0-0' }}
-        </span>
+
+        <div class="amount" [class.positive]="transaction.type === 'credit'">
+          <span class="amount-sign">{{ transaction.type === 'credit' ? '+' : '−' }}</span>
+          <span class="amount-value">{{ transaction.amount | currency: 'RUB' : 'symbol-narrow' : '1.0-0' }}</span>
+        </div>
       </div>
     } @empty {
-      <p class="empty-state">Введите запрос для поиска транзакций</p>
+      <div class="empty-state">
+        <div class="empty-icon">🔍</div>
+        <p class="empty-text">Введите запрос для поиска транзакций</p>
+      </div>
     }
   </div>
 </div>

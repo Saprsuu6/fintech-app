@@ -1,9 +1,16 @@
 <!-- htmlhint attr-lowercase:false -->
 <div class="cards-list">
   <div class="cards-summary">
-    <span>Активных карт: {{ activeCardsCount() }}</span>
+    <div class="summary-chip">
+      <span class="chip-label">Активно:</span>
+      <span class="chip-value">{{ activeCardsCount() }}</span>
+    </div>
+
     @if (hasBlockedCards()) {
-      <span class="warning">Есть заблокированные карты</span>
+      <div class="warning-chip">
+        <span class="warning-icon">⚠️</span>
+        <span>Есть блокировки</span>
+      </div>
     }
   </div>
 
@@ -11,7 +18,10 @@
     @for (card of cards(); track card.id) {
       <app-card-item [card]="card" (blockToggled)="onToggleBlock($event)" />
     } @empty {
-      <p class="empty-state">Нет добавленных карт</p>
+      <div class="empty-state">
+        <div class="empty-icon">💳</div>
+        <p class="empty-text">Нет добавленных карт</p>
+      </div>
     }
   </div>
 </div>

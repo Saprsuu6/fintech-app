@@ -9,91 +9,232 @@
   flex-direction: column;
   height: 100%;
   overflow-y: auto;
-  padding-right: 8px;
+  padding-right: 6px;
+  padding-bottom: 8px;
+}
 
-  .form-group {
-    margin-bottom: 20px;
+.form-group {
+  margin-bottom: 16px;
 
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      font-size: 13px;
-      color: #475569;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 14px 16px;
-      border: 1px solid #cbd5e1;
-      border-radius: 12px;
-      font-size: 15px;
-      outline: none;
-      transition: all 0.2s;
-      box-sizing: border-box;
-
-      &:focus {
-        border-color: #3b82f6;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-      }
-    }
-  }
-
-  .submit-btn {
-    width: 100%;
-    padding: 16px;
-    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
+  label {
+    display: block;
+    margin-bottom: 6px;
     font-weight: 600;
-    cursor: pointer;
-    transition:
-      opacity 0.2s,
-      transform 0.1s;
-    margin-top: 8px;
+    font-size: 12px;
+    color: var(--color-text-muted);
+    letter-spacing: 0.02em;
+  }
+}
 
+.form-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  font-size: 14.5px;
+  outline: none;
+  background: #f8fafc;
+  color: var(--color-text);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+
+  &:focus {
+    background: #ffffff;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-glow);
+  }
+
+  &::placeholder {
+    color: var(--color-text-subtle);
+  }
+}
+
+.input-currency-wrapper,
+.input-icon-wrapper,
+.select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.currency-badge {
+  position: absolute;
+  right: 14px;
+  font-weight: 600;
+  color: var(--color-text-subtle);
+  font-size: 15px;
+  pointer-events: none;
+}
+
+.field-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--color-text-subtle);
+  pointer-events: none;
+}
+
+.input-icon-wrapper input {
+  padding-left: 40px;
+}
+
+.input-currency-wrapper input {
+  padding-right: 36px;
+  font-weight: 600;
+}
+
+.form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+.select-chevron {
+  position: absolute;
+  right: 14px;
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.quick-amounts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.chip-btn {
+  padding: 6px 4px;
+  border: 1px solid var(--color-border);
+  background: #ffffff;
+  border-radius: 8px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition:
+    transform var(--dur-press) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+
+  @media (hover: hover) and (pointer: fine) {
     &:hover {
-      opacity: 0.9;
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    }
-
-    &:active {
-      transform: scale(0.98);
+      background: #f1f5f9;
+      color: var(--color-text);
     }
   }
 
-  .payment-result {
-    margin-top: 24px;
-    padding: 16px;
-    border-radius: 12px;
-    font-size: 14px;
+  &:active {
+    transform: scale(0.95);
+  }
 
-    &.success {
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      color: #166534;
-    }
+  &.active {
+    background: var(--color-primary);
+    color: #ffffff;
+    border-color: var(--color-primary);
+  }
+}
 
-    &.error {
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      color: #991b1b;
-    }
+.submit-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 18px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  transition:
+    transform var(--dur-press) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    opacity var(--dur-fast) var(--ease-out);
+  margin-top: 4px;
 
-    p {
-      margin: 0 0 6px;
-      font-weight: 500;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      opacity: 0.96;
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
     }
+  }
 
-    .transaction-id {
-      font-size: 13px;
-      opacity: 0.8;
-      font-family: 'Courier New', monospace;
-      margin-bottom: 0;
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.payment-result {
+  margin-top: 18px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  animation: resultEnter 200ms var(--ease-out) forwards;
+
+  .result-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 13.5px;
+    margin-bottom: 4px;
+
+    .icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
     }
+  }
+
+  .transaction-id,
+  .error-detail {
+    margin: 0;
+    font-size: 12px;
+    font-family: ui-monospace, monospace;
+    opacity: 0.85;
+    padding-left: 26px;
+  }
+
+  &.success {
+    background: var(--color-success-bg);
+    border: 1px solid var(--color-success-border);
+    color: #15803d;
+
+    .icon {
+      background: #22c55e;
+      color: #ffffff;
+    }
+  }
+
+  &.error {
+    background: var(--color-danger-bg);
+    border: 1px solid var(--color-danger-border);
+    color: var(--color-danger);
+
+    .icon {
+      background: #ef4444;
+      color: #ffffff;
+    }
+  }
+}
+
+@keyframes resultEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
 }

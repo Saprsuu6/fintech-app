@@ -1,50 +1,90 @@
 <div class="payment-form">
   <div class="form-group">
     <label for="amount">Сумма (RUB)</label>
-    <input
-      id="amount"
-      type="number"
-      class="form-input"
-      placeholder="Введите сумму"
-      [value]="amount()"
-      (input)="onAmountInput($event)"
-    />
+    <div class="input-currency-wrapper">
+      <input
+        id="amount"
+        type="number"
+        class="form-input"
+        placeholder="0"
+        [value]="amount() || ''"
+        (input)="onAmountInput($event)"
+      />
+      <span class="currency-badge">₽</span>
+    </div>
+
+    <div class="quick-amounts">
+      @for (val of quickAmounts; track val) {
+        <button
+          type="button"
+          class="chip-btn"
+          [class.active]="amount() === val"
+          (click)="setQuickAmount(val)"
+        >
+          {{ val | currency: 'RUB' : 'symbol-narrow' : '1.0-0' }}
+        </button>
+      }
+    </div>
   </div>
 
   <div class="form-group">
     <label for="recipient">Номер карты получателя</label>
-    <input
-      id="recipient"
-      type="text"
-      class="form-input"
-      placeholder="0000 0000 0000 0000"
-      [value]="recipientPan()"
-      (input)="onRecipientInput($event)"
-    />
+    <div class="input-icon-wrapper">
+      <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="20" height="14" x="2" y="5" rx="3" />
+        <line x1="2" x2="22" y1="10" y2="10" />
+      </svg>
+      <input
+        id="recipient"
+        type="text"
+        class="form-input"
+        placeholder="0000 0000 0000 0000"
+        [value]="recipientPan()"
+        (input)="onRecipientInput($event)"
+      />
+    </div>
   </div>
 
   <div class="form-group">
     <label for="tx-type">Тип транзакции</label>
-    <select
-      id="tx-type"
-      class="form-input"
-      [value]="transactionType()"
-      (change)="onTypeChange($event)"
-    >
-      <option value="debit">Списание (Debit)</option>
-      <option value="credit">Пополнение (Credit)</option>
-    </select>
+    <div class="select-wrapper">
+      <select
+        id="tx-type"
+        class="form-input form-select"
+        [value]="transactionType()"
+        (change)="onTypeChange($event)"
+      >
+        <option value="debit">Списание (Debit)</option>
+        <option value="credit">Пополнение (Credit)</option>
+      </select>
+      <svg class="select-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+    </div>
   </div>
 
-  <button class="submit-btn" (click)="onSubmit()">Отправить платёж</button>
+  <button class="submit-btn" (click)="onSubmit()">
+    <span>Отправить платёж</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12" />
+      <polyline points="12 5 19 12 12 19" />
+    </svg>
+  </button>
 
   @if (paymentResult(); as result) {
     <div class="payment-result" [class.success]="result.success" [class.error]="!result.success">
       @if (result.success) {
-        <p>✅ Платёж успешно выполнен</p>
-        <p class="transaction-id">ID транзакции: {{ result.transactionId }}</p>
+        <div class="result-header">
+          <span class="icon">✓</span>
+          <span>Платёж успешно выполнен</span>
+        </div>
+        <p class="transaction-id">ID: {{ result.transactionId }}</p>
       } @else {
-        <p>❌ Ошибка: {{ result.errorMessage }}</p>
+        <div class="result-header">
+          <span class="icon">✕</span>
+          <span>Ошибка платежа</span>
+        </div>
+        <p class="error-detail">{{ result.errorMessage }}</p>
       }
     </div>
   }
